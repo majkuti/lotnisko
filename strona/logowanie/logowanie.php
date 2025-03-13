@@ -3,34 +3,35 @@
     session_start();
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $haslo = $_POST['haslo'];
 
-    try {
-        $stmt = $db->prepare("SELECT * FROM uzytkownicy WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch();
-
-        if ($user && password_verify($haslo, $user['haslo'])) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['imie'];
-            $_SESSION['user_email'] = $user['email'];
-            
-            header("Location: ../index.php");
-            exit();
-        } else {
-            $_SESSION['error'] = "Nieprawidłowy email lub hasło";
-            header("logowanie.php");
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $email = $_POST['email'];
+        $haslo = $_POST['haslo'];
+    
+        try {
+            $stmt = $db->prepare("SELECT * FROM uzytkownicy WHERE email = ?");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch();
+    
+            if ($user && password_verify($haslo, $user['haslo'])) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['imie'] = $user['imie'];
+                $_SESSION['user_email'] = $user['email'];
+                
+                header("Location: ../main/loginuser.php");
+                exit();
+            } else {
+                $_SESSION['error'] = "Nieprawidłowy email lub hasło";
+                header("Location: logowanie.php");
+                exit();
+            }
+    
+        } catch(PDOException $e) {
+            $_SESSION['error'] = "Błąd podczas logowania. Spróbuj ponownie później.";
+            header("Location: logowanie.php");
             exit();
         }
-
-    } catch(PDOException $e) {
-        $_SESSION['error'] = "Błąd podczas logowania. Spróbuj ponownie później.";
-        header("logowanie.php");
-        exit();
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -79,6 +80,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
             <p class="register-link">Nie masz konta? <a href="../logowanie/rejestracja.php">Zarejestruj się</a></p>
         </div>
+        <div class="admin-login">
+    <hr class="divider">
+    <p>Panel administratora</p>
+    <a href="../main/admin/adminlogin.php" class="admin-btn">Zaloguj jako administrator</a>
+</div>
     </main>
     <footer>
         <p>&copy; <?php echo date('Y'); ?> MosinAIR. Wszelkie prawa zastrzeżone.</p>

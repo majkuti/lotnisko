@@ -94,3 +94,27 @@
         padding: 20px;
     }
 }
+.admin-login {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.divider {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+.admin-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2c3e50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.admin-btn:hover {
+    background-color: #34495e;
+}

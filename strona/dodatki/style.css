@@ -13,18 +13,21 @@ body {
 }
 
 header {
-    background-color: #333333;
-    padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-image: url('../zdjecia/samolot.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 125px;
+    width: 100%;
+    position: relative;
 }
 
 nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    position: absolute;
+    width: 100%;
+    top: 0;
 }
 
 .logo img {
@@ -39,6 +42,7 @@ nav {
 .nav-links {
     display: flex;
     gap: 20px;
+    justify-content: right;
 }
 
 nav a {
@@ -47,6 +51,7 @@ nav a {
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    background-color: #333333;   
 }
 
 nav a:hover {
@@ -179,4 +184,48 @@ footer {
     .welcome h1 {
         font-size: 2em;
     }
+}
+
+.search-section {
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-input label {
+    margin-bottom: 5px;
+}
+
+.search-input select,
+.search-input input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-width: 200px;
+}
+
+.search-button {
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
 }

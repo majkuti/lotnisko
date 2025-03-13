@@ -28,12 +28,12 @@
         <nav>
             <div class="logo">
                 <a href="index.php">
-                    <img src="zdjecia/logo/logo_mosinair.jpeg" alt="MosinAIR Logo" width="50" height="50">
+                    <img src="zdjecia/logo/logo_mosinair.jpeg" alt="MosinAIR Logo" width="50" height="50" id="logoindex">
                 </a>
             </div>
             <div class="nav-links">
                 <a href="logowanie/logowanie.php">Zaloguj się</a>
-                <a href="rejestracja/rejestracja.php">Zarejestruj się</a>
+                <a href="logowanie/rejestracja.php">Zarejestruj się</a>
             </div>
         </nav>
     </header>
@@ -41,8 +41,7 @@
         <section class="welcome">
             <h1>Witamy w MosinAIR</h1>
             <p>Znajdź i zarezerwuj swój wymarzony lot</p>
-        </section>
-        <section class="flights">
+            <section class="flights">
             <h2>Dostępne loty</h2>
             <div class="flights-container">
                 <?php foreach($loty as $lot): ?>
@@ -55,7 +54,8 @@
                             <p>Data przylotu: <?php echo date('d.m.Y H:i', strtotime($lot['data_koniec'])); ?></p>
                             <p>Status: <?php echo htmlspecialchars($lot['status_lotu']); ?></p>
                         </div>
-                        <a href="rezerwacja.php?id=<?php echo $lot['id']; ?>" class="book-button">Zarezerwuj</a>
+                        <a href="logowanie/logowanie.php" class="book-button">Zarezerwuj</a>
+
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -66,3 +66,4 @@
     </footer>
 </body>
 </html>
+
