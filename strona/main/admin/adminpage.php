@@ -51,8 +51,8 @@ $flights_count = $stmt_flights->fetch()['total_flights'];
             </div>
             <div class="nav-links">
                 <a href="../admin/zarzadzaj_uzytkownikami.php">Zarządzaj Użytkownikami</a>
-                <a href="manage_airports.php">Zarządzaj Lotniskami</a>
-                <a href="manage_reservations.php">Zarządzaj Rezerwacjami</a>
+                <a href="../admin/zarzadzaj_lotniskami.php">Zarządzaj Lotniskami</a>
+                <a href="../admin/zarzadzanie_rezerwacjami.php">Zarządzaj Rezerwacjami</a>
                 <a href="../../index.php">Wyloguj się</a>
             </div>
         </nav>

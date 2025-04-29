@@ -14,7 +14,7 @@ if (isset($_GET['delete_id']) && !empty($_GET['delete_id'])) {
     
     try {
         // Najpierw usuń rezerwacje użytkownika
-        $delete_reservations = $db->prepare("DELETE FROM rezerwacje WHERE id_uzytkownika = ?");
+        $delete_reservations = $db->prepare("DELETE FROM rezerwacje WHERE id = ?");
         $delete_reservations->execute([$delete_id]);
         
         // Następnie usuń użytkownika

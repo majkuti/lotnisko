@@ -72,7 +72,6 @@
             <h2>Dostępne loty</h2>
             <div class="flights-container">
             <?php foreach($loty as $lot): ?>
-    <!-- In the flight card section -->
 <div class="flights-container">
     <?php foreach($loty as $lot): ?>
         <div class="flight-card">
@@ -82,7 +81,13 @@
                 <p>Do: <?php echo htmlspecialchars($lot['lotnisko_koniec']); ?></p>
                 <p>Data wylotu: <?php echo date('d.m.Y H:i', strtotime($lot['data_start'])); ?></p>
                 <p>Data przylotu: <?php echo date('d.m.Y H:i', strtotime($lot['data_koniec'])); ?></p>
-                <p>Status: <?php echo htmlspecialchars($lot['status_lotu']); ?></p>
+                <p>Status: <?php 
+                                if (empty($lot['status_lotu'])) {
+                                    echo "Aktywny"; // Default value if status is empty
+                                } else {
+                                    echo htmlspecialchars($lot['status_lotu']);
+                                }
+                            ?></p>
                 <?php if(isset($lot['cena'])): ?>
                 <p>Cena: <?php echo number_format($lot['cena'], 2); ?> PLN</p>
                 <?php endif; ?>

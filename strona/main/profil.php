@@ -69,14 +69,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../dodatki/style.css">
     <link rel="stylesheet" href="../main/profil.css">
+    <link rel="stylesheet" href="../dodatki/style.css">
     <title>Document</title>
 </head>
 <body>
 <header>
+    <nav>
+        <div class="logo">
+            <a href="../main/loginuser.php">
+                <img src="../zdjecia/logo/logo_mosinair.jpeg" alt="MosinAIR Logo" width="50" height="50">
+            </a>
+        </div>
+        <div class="nav-links">
+            <a class="nav-link active" href="#edit-profile" data-bs-toggle="tab">Edytuj profil</a>
+            <a class="nav-link" href="../main/loginuser.php">Strona główna</a>
+            <a class="nav-link text-danger" href="../main/logout.php">Wyloguj się</a>
+        </div>
+    </nav>
+</header>
 
-    </header>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
@@ -99,30 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
                 </div>
             </div>
             
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Menu</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#edit-profile" data-bs-toggle="tab">
-                                Edytuj profil
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../main/loginuser.php">
-                                Strona główna
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-danger" href="../main/logout.php">
-                                Wyloguj się
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <!-- Removed the Menu card from here -->
         </div>
         
         <div class="col-md-8">

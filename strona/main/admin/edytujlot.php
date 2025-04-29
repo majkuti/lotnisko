@@ -73,6 +73,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_message = "Błąd podczas aktualizacji lotu: " . $e->getMessage();
     }
 }
+$status_query = "SHOW COLUMNS FROM loty LIKE 'status_lotu'";
+$stmt_status = $db->query($status_query);
+$status_column = $stmt_status->fetch(PDO::FETCH_ASSOC);
+
+// Extract ENUM values from the column type
+$enum_str = $status_column['Type'];
+preg_match('/enum\((.*)\)/', $enum_str, $matches);
+$enum_values = str_getcsv($matches[1], ',', "'");
+
+// Create a mapping for display names
+$status_display_names = [
+    'planowany' => 'Planowany',
+    'boarding' => 'Boarding',
+    'w_locie' => 'W locie',
+    'wyladowal' => 'Wylądował',
+    'opozniony' => 'Opóźniony',
+    'odwolany' => 'Odwołany',
+    'aktywny' => 'Aktywny',
+    'zakończony' => 'Zakończony'
+];
 ?>
 
 <!DOCTYPE html>
@@ -208,10 +228,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label for="status_lotu">Status lotu:</label>
                         <select id="status_lotu" name="status_lotu" required>
-                            <option value="aktywny" <?php echo ($lot['status_lotu'] == 'aktywny') ? 'selected' : ''; ?>>Aktywny</option>
-                            <option value="odwołany" <?php echo ($lot['status_lotu'] == 'odwołany') ? 'selected' : ''; ?>>Odwołany</option>
-                            <option value="zakończony" <?php echo ($lot['status_lotu'] == 'zakończony') ? 'selected' : ''; ?>>Zakończony</option>
-                            <option value="opóźniony" <?php echo ($lot['status_lotu'] == 'opóźniony') ? 'selected' : ''; ?>>Opóźniony</option>
+                            <?php foreach ($enum_values as $status): ?>
+                                <option value="<?php echo htmlspecialchars(trim($status, "'")); ?>" 
+                                    <?php echo (trim($lot['status_lotu']) == trim($status, "'")) ? 'selected' : ''; ?>>
+                                    <?php echo isset($status_display_names[trim($status, "'")]) ? 
+                                        htmlspecialchars($status_display_names[trim($status, "'")]) : 
+                                        htmlspecialchars(trim($status, "'")); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     
