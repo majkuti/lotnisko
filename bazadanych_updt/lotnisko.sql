@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2025 at 01:40 PM
+-- Generation Time: Apr 29, 2025 at 01:59 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -118,27 +118,23 @@ CREATE TABLE `loty` (
   `data_koniec` datetime NOT NULL,
   `status_lotu` enum('planowany','boarding','w_locie','wyladowal','opozniony','odwolany') NOT NULL,
   `id_gate_wylot` int(11) DEFAULT NULL,
-  `id_gate_przylot` int(11) DEFAULT NULL
+  `id_gate_przylot` int(11) DEFAULT NULL,
+  `cena` decimal(10,2) DEFAULT NULL,
+  `dostepne_miejsca` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `loty`
 --
 
-INSERT INTO `loty` (`id`, `id_samolotu`, `id_lotniska_start`, `id_lotniska_koniec`, `id_linii_lotniczych`, `numer_lotu`, `data_start`, `data_koniec`, `status_lotu`, `id_gate_wylot`, `id_gate_przylot`) VALUES
-(7, 1, 1, 2, 1, 'MA101', '2024-02-15 08:30:00', '2024-02-15 10:45:00', 'planowany', NULL, NULL),
-(8, 2, 3, 4, 1, 'MA202', '2024-02-16 12:15:00', '2024-02-16 14:30:00', 'planowany', NULL, NULL),
-(9, 3, 2, 1, 1, 'MA303', '2024-02-17 16:45:00', '2024-02-17 18:15:00', 'planowany', NULL, NULL),
-(10, 0, 1, 2, 0, 'MA101', '2024-01-15 08:00:00', '2024-01-15 10:30:00', 'planowany', NULL, NULL),
-(11, 0, 2, 3, 0, 'MA102', '2024-01-16 09:15:00', '2024-01-16 11:45:00', 'planowany', NULL, NULL),
-(12, 0, 3, 1, 0, 'MA103', '2024-01-17 12:00:00', '2024-01-17 14:30:00', 'planowany', NULL, NULL),
-(13, 0, 1, 4, 0, 'MA104', '2024-01-18 14:30:00', '2024-01-18 17:00:00', 'planowany', NULL, NULL),
-(14, 0, 4, 2, 0, 'MA105', '2024-01-19 07:45:00', '2024-01-19 10:15:00', 'planowany', NULL, NULL),
-(15, 0, 2, 1, 0, 'MA106', '2024-01-20 16:00:00', '2024-01-20 18:30:00', 'planowany', NULL, NULL),
-(16, 0, 3, 4, 0, 'MA107', '2024-01-21 11:30:00', '2024-01-21 14:00:00', 'planowany', NULL, NULL),
-(17, 0, 4, 3, 0, 'MA108', '2024-01-22 13:45:00', '2024-01-22 16:15:00', 'planowany', NULL, NULL),
-(18, 0, 1, 3, 0, 'MA109', '2024-01-23 10:00:00', '2024-01-23 12:30:00', 'planowany', NULL, NULL),
-(19, 0, 2, 4, 0, 'MA110', '2024-01-24 15:15:00', '2024-01-24 17:45:00', 'planowany', NULL, NULL);
+INSERT INTO `loty` (`id`, `id_samolotu`, `id_lotniska_start`, `id_lotniska_koniec`, `id_linii_lotniczych`, `numer_lotu`, `data_start`, `data_koniec`, `status_lotu`, `id_gate_wylot`, `id_gate_przylot`, `cena`, `dostepne_miejsca`) VALUES
+(8, 2, 3, 4, 1, 'MA202', '2024-02-16 12:15:00', '2024-02-16 14:30:00', 'planowany', NULL, NULL, NULL, NULL),
+(13, 0, 1, 4, 0, 'MA104', '2024-01-18 14:30:00', '2024-01-18 17:00:00', 'planowany', NULL, NULL, NULL, NULL),
+(14, 0, 4, 2, 0, 'MA105', '2024-01-19 07:45:00', '2024-01-19 10:15:00', 'planowany', NULL, NULL, NULL, NULL),
+(16, 0, 3, 4, 0, 'MA107', '2024-01-21 11:30:00', '2024-01-21 14:00:00', 'planowany', NULL, NULL, NULL, NULL),
+(17, 0, 4, 3, 0, 'MA108', '2024-01-22 13:45:00', '2024-01-22 16:15:00', 'planowany', NULL, NULL, NULL, NULL),
+(19, 0, 2, 4, 0, 'MA110', '2024-01-24 15:15:00', '2024-01-24 17:45:00', 'planowany', NULL, NULL, NULL, NULL),
+(47, 1, 1, 2, 1, '2137', '2025-04-30 03:29:00', '2025-05-02 03:29:00', '', NULL, NULL, 2137.00, 100);
 
 -- --------------------------------------------------------
 
@@ -171,7 +167,8 @@ CREATE TABLE `rezerwacje` (
   `klasa_podrozy` enum('ekonomiczna','biznes','pierwsza') NOT NULL,
   `status_rezerwacji` enum('potwierdzona','anulowana','zrealizowana') NOT NULL,
   `data_rezerwacji` timestamp NOT NULL DEFAULT current_timestamp(),
-  `cena` decimal(10,2) NOT NULL
+  `cena` decimal(10,2) NOT NULL,
+  `liczba_miejsc` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -237,9 +234,10 @@ CREATE TABLE `uzytkownicy` (
 --
 
 INSERT INTO `uzytkownicy` (`id`, `imie`, `nazwisko`, `email`, `haslo`, `data_rejestracji`) VALUES
-(1, 'aa', 'aa', 'aa@aa.pl', '$2y$10$eMyYEGrCMbE4A2HRQ/50Y.hRKj8gBCOYbh7n/iSutjS0DvACfPUMi', '2025-03-10 00:22:41'),
+(1, 'pedalk', 'cwel', 'aa@aa.pl', '$2y$10$eMyYEGrCMbE4A2HRQ/50Y.hRKj8gBCOYbh7n/iSutjS0DvACfPUMi', '2025-03-10 00:22:41'),
 (2, 'aa', 'aa', 'a2@op.pl', '$2y$10$ney9R5HKww0Lh3UDo4eNN.0SJvoscjN.ydQ5TPQlkVZ5YOUGje07S', '2025-03-10 00:26:35'),
-(3, 'Krystian', 'zawada', 'ax@wp.pl', '$2y$10$mAR/7LRgEmAN5P4N.yyK/ev1/oknx/ocYuB2Q.tdV6..dO2duWFBK', '2025-03-10 22:57:31');
+(3, 'Krystian', 'zawada', 'ax@wp.pl', '$2y$10$mAR/7LRgEmAN5P4N.yyK/ev1/oknx/ocYuB2Q.tdV6..dO2duWFBK', '2025-03-10 22:57:31'),
+(4, 'alan', 'jaros', 'jaros@wp.pl', '$2y$10$w/BJIOokua8OXwPYKi.EAO4hAf6MbRgHJCqqJOux9BUmmTFhCx.vu', '2025-04-28 11:25:14');
 
 -- --------------------------------------------------------
 
@@ -394,7 +392,7 @@ ALTER TABLE `lotniska`
 -- AUTO_INCREMENT for table `loty`
 --
 ALTER TABLE `loty`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `pasazerowie`
@@ -406,7 +404,7 @@ ALTER TABLE `pasazerowie`
 -- AUTO_INCREMENT for table `rezerwacje`
 --
 ALTER TABLE `rezerwacje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `samoloty`
@@ -424,7 +422,7 @@ ALTER TABLE `samoloty_linii_lotniczych`
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `zaloga`
