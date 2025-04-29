@@ -72,20 +72,29 @@
             <h2>Dostępne loty</h2>
             <div class="flights-container">
             <?php foreach($loty as $lot): ?>
-    <div class="flight-card">
-        <div class="flight-details">
-            <h3>Lot <?php echo htmlspecialchars($lot['numer_lotu']); ?></h3>
-            <p>Z: <?php echo htmlspecialchars($lot['lotnisko_start']); ?></p>
-            <p>Do: <?php echo htmlspecialchars($lot['lotnisko_koniec']); ?></p>
-            <p>Data wylotu: <?php echo date('d.m.Y H:i', strtotime($lot['data_start'])); ?></p>
-            <p>Data przylotu: <?php echo date('d.m.Y H:i', strtotime($lot['data_koniec'])); ?></p>
-            <p>Status: <?php echo htmlspecialchars($lot['status_lotu']); ?></p>
+    <!-- In the flight card section -->
+<div class="flights-container">
+    <?php foreach($loty as $lot): ?>
+        <div class="flight-card">
+            <div class="flight-details">
+                <h3>Lot <?php echo htmlspecialchars($lot['numer_lotu']); ?></h3>
+                <p>Z: <?php echo htmlspecialchars($lot['lotnisko_start']); ?></p>
+                <p>Do: <?php echo htmlspecialchars($lot['lotnisko_koniec']); ?></p>
+                <p>Data wylotu: <?php echo date('d.m.Y H:i', strtotime($lot['data_start'])); ?></p>
+                <p>Data przylotu: <?php echo date('d.m.Y H:i', strtotime($lot['data_koniec'])); ?></p>
+                <p>Status: <?php echo htmlspecialchars($lot['status_lotu']); ?></p>
+                <?php if(isset($lot['cena'])): ?>
+                <p>Cena: <?php echo number_format($lot['cena'], 2); ?> PLN</p>
+                <?php endif; ?>
+            </div>
+            <a href="rezerwacja.php?id=<?php echo $lot['id']; ?>" class="book-button">Zarezerwuj</a>
         </div>
-        <?php if($lot['status_lotu'] == 'aktywny'): ?>
-            <form action="make_reservation.php" method="POST">
-                <input type="hidden" name="lot_id" value="<?php echo $lot['id']; ?>">
-                <button type="submit" class="book-button">Zarezerwuj</button>
-            </form>
+    <?php endforeach; ?>
+</div>
+
+        <?php if(in_array(strtolower($lot['status_lotu']), ['aktywny', 'dostępny', 'otwarty', 'planowany'])): ?>
+
+            <a href="rezerwacja.php?id=<?php echo $lot['id']; ?>" class="book-button">Zarezerwuj</a>
         <?php else: ?>
             <button class="book-button disabled" disabled>Lot niedostępny</button>
         <?php endif; ?>
@@ -95,8 +104,6 @@
             </div>
         </section>
     </main>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> MosinAIR. Wszelkie prawa zastrzeżone.</p>
-    </footer>
+    <?php include './footer/footer.php'; ?>
 </body>
 </html>

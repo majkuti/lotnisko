@@ -50,8 +50,7 @@ $flights_count = $stmt_flights->fetch()['total_flights'];
                 </a>
             </div>
             <div class="nav-links">
-                <a href="manage_flights.php">Zarządzaj Lotami</a>
-                <a href="manage_users.php">Zarządzaj Użytkownikami</a>
+                <a href="../admin/zarzadzaj_uzytkownikami.php">Zarządzaj Użytkownikami</a>
                 <a href="manage_airports.php">Zarządzaj Lotniskami</a>
                 <a href="manage_reservations.php">Zarządzaj Rezerwacjami</a>
                 <a href="../../index.php">Wyloguj się</a>
@@ -84,7 +83,7 @@ $flights_count = $stmt_flights->fetch()['total_flights'];
             <section class="flight-management">
                 <h2>Zarządzanie Lotami</h2>
                 <div class="action-buttons">
-                    <a href="add_flight.php" class="admin-btn">Dodaj Nowy Lot</a>
+                    <a href="../admin/dodawnie_lotu.php" class="admin-btn">Dodaj Nowy Lot</a>
                 </div>
                 <div class="flights-table">
                     <table>
@@ -95,6 +94,8 @@ $flights_count = $stmt_flights->fetch()['total_flights'];
                                 <th>Do</th>
                                 <th>Data Wylotu</th>
                                 <th>Status</th>
+                                <th>Cena (PLN)</th>
+                                <th>Dostępne Miejsca</th>
                                 <th>Akcje</th>
                             </tr>
                         </thead>
@@ -106,9 +107,11 @@ $flights_count = $stmt_flights->fetch()['total_flights'];
                                 <td><?php echo htmlspecialchars($lot['lotnisko_koniec']); ?></td>
                                 <td><?php echo date('d.m.Y H:i', strtotime($lot['data_start'])); ?></td>
                                 <td><?php echo htmlspecialchars($lot['status_lotu']); ?></td>
+                                <td><?php echo number_format($lot['cena'], 2); ?></td>
+                                <td><?php echo htmlspecialchars($lot['dostepne_miejsca']); ?></td>
                                 <td class="action-buttons">
-                                    <a href="edit_flight.php?id=<?php echo $lot['id']; ?>" class="edit-btn">Edytuj</a>
-                                    <a href="delete_flight.php?id=<?php echo $lot['id']; ?>" class="delete-btn" onclick="return confirm('Czy na pewno chcesz usunąć ten lot?')">Usuń</a>
+                                    <a href="edytujlot.php?id=<?php echo $lot['id']; ?>" class="edit-btn">Edytuj</a>
+                                    <a href="usunlot.php?id=<?php echo $lot['id']; ?>" class="delete-btn" onclick="return confirm('Czy na pewno chcesz usunąć ten lot?')">Usuń</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

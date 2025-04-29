@@ -112,3 +112,35 @@ ADD COLUMN id_gate_wylot INT,
 ADD COLUMN id_gate_przylot INT,
 ADD FOREIGN KEY (id_gate_wylot) REFERENCES gates(id),
 ADD FOREIGN KEY (id_gate_przylot) REFERENCES gates(id);
+
+CREATE TABLE `administratorzy` (
+  id int(11) NOT NULL,
+  email varchar(255) NOT NULL,
+  haslo varchar(255) NOT NULL
+) 
+
+INSERT INTO `loty` (`id`, `id_samolotu`, `id_lotniska_start`, `id_lotniska_koniec`, `id_linii_lotniczych`, `numer_lotu`, `data_start`, `data_koniec`, `status_lotu`, `id_gate_wylot`, `id_gate_przylot`) VALUES
+(7, 1, 1, 2, 1, 'MA101', '2024-02-15 08:30:00', '2024-02-15 10:45:00', 'planowany', NULL, NULL),
+(8, 2, 3, 4, 1, 'MA202', '2024-02-16 12:15:00', '2024-02-16 14:30:00', 'planowany', NULL, NULL),
+(9, 3, 2, 1, 1, 'MA303', '2024-02-17 16:45:00', '2024-02-17 18:15:00', 'planowany', NULL, NULL),
+(10, 0, 1, 2, 0, 'MA101', '2024-01-15 08:00:00', '2024-01-15 10:30:00', 'planowany', NULL, NULL),
+(11, 0, 2, 3, 0, 'MA102', '2024-01-16 09:15:00', '2024-01-16 11:45:00', 'planowany', NULL, NULL),
+(12, 0, 3, 1, 0, 'MA103', '2024-01-17 12:00:00', '2024-01-17 14:30:00', 'planowany', NULL, NULL),
+(13, 0, 1, 4, 0, 'MA104', '2024-01-18 14:30:00', '2024-01-18 17:00:00', 'planowany', NULL, NULL),
+(14, 0, 4, 2, 0, 'MA105', '2024-01-19 07:45:00', '2024-01-19 10:15:00', 'planowany', NULL, NULL),
+(15, 0, 2, 1, 0, 'MA106', '2024-01-20 16:00:00', '2024-01-20 18:30:00', 'planowany', NULL, NULL),
+(16, 0, 3, 4, 0, 'MA107', '2024-01-21 11:30:00', '2024-01-21 14:00:00', 'planowany', NULL, NULL),
+(17, 0, 4, 3, 0, 'MA108', '2024-01-22 13:45:00', '2024-01-22 16:15:00', 'planowany', NULL, NULL),
+(18, 0, 1, 3, 0, 'MA109', '2024-01-23 10:00:00', '2024-01-23 12:30:00', 'planowany', NULL, NULL),
+(19, 0, 2, 4, 0, 'MA110', '2024-01-24 15:15:00', '2024-01-24 17:45:00', 'planowany', NULL, NULL);
+
+INSERT INTO `samoloty` (`id`, `model`, `liczba_miejsc`, `liczba_miejsc_biznes`, `liczba_miejsc_ekonomiczna`, `data_ostatniego_przegladu`, `status_samolotu`) VALUES
+(1, 'Boeing 737', 180, 20, 160, '2024-01-15', 'sprawny');
+
+INSERT INTO `samoloty_linii_lotniczych` (`id`, `id_samolotu`, `id_linii_lotniczych`, `data_zakupu`) VALUES
+(2, 1, 1, '2024-01-01');
+
+INSERT INTO `uzytkownicy` (`id`, `imie`, `nazwisko`, `email`, `haslo`, `data_rejestracji`) VALUES
+(1, 'aa', 'aa', 'aa@aa.pl', '$2y$10$eMyYEGrCMbE4A2HRQ/50Y.hRKj8gBCOYbh7n/iSutjS0DvACfPUMi', '2025-03-10 00:22:41'),
+(2, 'aa', 'aa', 'a2@op.pl', '$2y$10$ney9R5HKww0Lh3UDo4eNN.0SJvoscjN.ydQ5TPQlkVZ5YOUGje07S', '2025-03-10 00:26:35'),
+(3, 'Krystian', 'zawada', 'ax@wp.pl', '$2y$10$mAR/7LRgEmAN5P4N.yyK/ev1/oknx/ocYuB2Q.tdV6..dO2duWFBK', '2025-03-10 22:57:31');

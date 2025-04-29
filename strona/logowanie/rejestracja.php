@@ -101,8 +101,8 @@
             <p class="login-link">Masz już konto? <a href="../logowanie/logowanie.php">Zaloguj się</a></p>
         </div>
     </main>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> MosinAIR. Wszelkie prawa zastrzeżone.</p>
-    </footer>
+    <?php
+    include '../main/footer/footer.php';
+    ?>
 </body>
 </html>

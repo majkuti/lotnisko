@@ -2,13 +2,26 @@
     require_once '../config.php';
     session_start();
 
-
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         $haslo = $_POST['haslo'];
     
         try {
+            // First check if it's an admin
+            $stmt_admin = $db->prepare("SELECT * FROM administratorzy WHERE email = ?");
+            $stmt_admin->execute([$email]);
+            $admin = $stmt_admin->fetch();
+            
+            if ($admin && password_verify($haslo, $admin['haslo'])) {
+                // Admin login successful
+                $_SESSION['admin_id'] = $admin['id'];
+                $_SESSION['admin_email'] = $admin['email'];
+                
+                header("Location: ../main/admin/adminpage.php");
+                exit();
+            }
+            
+            // If not admin, check if regular user
             $stmt = $db->prepare("SELECT * FROM uzytkownicy WHERE email = ?");
             $stmt->execute([$email]);
             $user = $stmt->fetch();
@@ -80,14 +93,7 @@
             </form>
             <p class="register-link">Nie masz konta? <a href="../logowanie/rejestracja.php">Zarejestruj się</a></p>
         </div>
-        <div class="admin-login">
-    <hr class="divider">
-    <p>Panel administratora</p>
-    <a href="../main/admin/adminlogin.php" class="admin-btn">Zaloguj jako administrator</a>
-</div>
     </main>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> MosinAIR. Wszelkie prawa zastrzeżone.</p>
-    </footer>
+    <?php include '../main/footer/footer.php'; ?>
 </body>
 </html>

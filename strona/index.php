@@ -20,7 +20,7 @@
     <meta name="description" content="MosinAIR - Twoje linie lotnicze">
     <meta name="keywords" content="loty, rezerwacje, bilety lotnicze, MosinAIR">
     <title>MosinAIR</title>
-    <link rel="stylesheet" href="dodatki/style.css">
+    <link rel="stylesheet" href="./dodatki/style.css">
     <link rel="icon" type="image/jpeg" sizes="64x64" href="zdjecia/logo/logo_mosinair.jpeg">
 </head>
 <body>
@@ -41,7 +41,8 @@
         <section class="welcome">
             <h1>Witamy w MosinAIR</h1>
             <p>Znajdź i zarezerwuj swój wymarzony lot</p>
-            <section class="flights">
+        </section>
+        <section class="flights">
             <h2>Dostępne loty</h2>
             <div class="flights-container">
                 <?php foreach($loty as $lot): ?>
@@ -53,17 +54,16 @@
                             <p>Data wylotu: <?php echo date('d.m.Y H:i', strtotime($lot['data_start'])); ?></p>
                             <p>Data przylotu: <?php echo date('d.m.Y H:i', strtotime($lot['data_koniec'])); ?></p>
                             <p>Status: <?php echo htmlspecialchars($lot['status_lotu']); ?></p>
+                            <?php if(isset($lot['cena'])): ?>
+                            <p>Cena: <?php echo number_format($lot['cena'], 2); ?> PLN</p>
+                            <?php endif; ?>
                         </div>
                         <a href="logowanie/logowanie.php" class="book-button">Zarezerwuj</a>
-
                     </div>
                 <?php endforeach; ?>
             </div>
         </section>
     </main>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> MosinAIR. Wszelkie prawa zastrzeżone.</p>
-    </footer>
+    <?php include './main/footer/footer.php'; ?>
 </body>
 </html>
-
